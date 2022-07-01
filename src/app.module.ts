@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config';
-import { UserModule } from './user/user.module';
+
+const entities = [];
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -11,7 +15,23 @@ import { UserModule } from './user/user.module';
       envFilePath: '.env',
       load: [configuration],
     }),
-    UserModule,
+    TypeOrmModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        type: 'mongodb',
+        host: config.get('database.host', 'localhost'),
+        port: +config.get<number>('database.port', 27017),
+        username: config.get('database.username'),
+        password: config.get('database.password'),
+        database: config.get('database.dbname', 'nest_expess'),
+        entities: ['dist/**/*.entity{.ts,.js}'],
+        // migrations: [__dirname + '../migrations/*{.ts,.js}'],
+        // migrationsRun: true,
+        logging: true,
+        // synchronize: true, // should not be used in production
+      }),
+      inject: [ConfigService],
+    }),
+    ApiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
