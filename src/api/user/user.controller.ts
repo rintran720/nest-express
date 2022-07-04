@@ -6,8 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Request, Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
@@ -25,7 +28,9 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    console.log(req.cookies);
+    res.cookie('key', 'value');
     return this.userService.findAll();
   }
 
