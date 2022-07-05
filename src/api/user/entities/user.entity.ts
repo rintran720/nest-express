@@ -1,14 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import type { ObjectId } from 'mongodb';
+import { Column, Entity, Index, ObjectIdColumn, Unique } from 'typeorm';
 
 @Entity()
+@Unique(['email'])
 export class User {
-  @PrimaryGeneratedColumn()
-  id: string;
+  @ObjectIdColumn()
+  id: ObjectId;
 
   @Column()
   name: string;
 
-  @Column()
+  @Index({ unique: true })
+  @Column({ name: 'email' })
   email: string;
 
   @Column()

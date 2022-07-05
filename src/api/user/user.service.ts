@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { verify } from 'crypto';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -14,8 +15,13 @@ export class UserService {
     private userRepo: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    try {
+      const user = await this.userRepo.create(createUserDto);
+      return this.userRepo.save(user);
+    } catch (err) {
+      throw new Error("Can't create new user"); // throw error when can't run userRepo.create
+    }
   }
 
   async findAll() {
@@ -35,5 +41,13 @@ export class UserService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+
+  findOneByEmail(email: string) {
+    return this.userRepo.findOne({ where: { email } });
+  }
+
+  findOneByQuery(query: object) {
+    return this.userRepo.findOne({ where: query });
   }
 }
