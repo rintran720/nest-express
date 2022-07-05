@@ -51,10 +51,10 @@ export class AuthController {
       ) {
         return {
           token: this.jwtHelperService.generateAccessTokenSync({
-            userId: user.id,
+            id: user.id,
           }),
           refreshToken: this.jwtHelperService.generateRefreshTokenSync({
-            userId: user.id,
+            id: user.id,
           }),
         };
       }

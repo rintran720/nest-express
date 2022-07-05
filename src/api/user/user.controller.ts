@@ -29,8 +29,8 @@ export class UserController {
 
   @Get()
   findAll(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    console.log(req.cookies);
-    res.cookie('key', 'value');
+    // console.log(req.cookies);
+    // res.cookie('key', 'value');
     return this.userService.findAll();
   }
 

@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
 
-export interface JwtPayload {
-  userId: string | ObjectId | number;
+export interface AppJwtPayload extends jwt.JwtPayload {
+  id: string | ObjectId | number;
 }
 
 @Injectable()
@@ -20,7 +20,7 @@ export class JwtHelperService {
     this.refreshTokenExpire = config.get('server.refreshTokenExpire');
   }
 
-  generateAccessTokenSync(payload: JwtPayload) {
+  generateAccessTokenSync(payload: AppJwtPayload) {
     return jwt.sign(payload, this.tokenSecret, {
       expiresIn: this.tokenExpire,
     });
@@ -34,7 +34,7 @@ export class JwtHelperService {
     return jwt.decode(accessToken);
   }
 
-  generateRefreshTokenSync(payload: JwtPayload) {
+  generateRefreshTokenSync(payload: AppJwtPayload) {
     return jwt.sign(payload, this.refreshTokenSecret, {
       expiresIn: this.refreshTokenExpire,
     });

@@ -25,8 +25,6 @@ export class UserService {
   }
 
   async findAll() {
-    this.logger.debug({ foo: 'bar' });
-
     const users = await this.userRepo.find();
     return users;
   }
