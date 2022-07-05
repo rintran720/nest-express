@@ -15,9 +15,14 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(
     session({
-      secret: 'my-secret',
+      secret: 'secret key',
       resave: false,
-      saveUninitialized: false,
+      saveUninitialized: true,
+      cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: 5 * 60 * 1000,
+      },
     }),
   );
   app.use(csurf());
