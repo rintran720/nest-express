@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
+import * as csurf from 'csurf';
+import * as session from 'express-session';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
@@ -11,6 +13,14 @@ async function bootstrap() {
   app.use(helmet());
   app.enableCors();
   app.use(cookieParser());
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+  app.use(csurf());
   app.use(
     compression({
       level: 6,
