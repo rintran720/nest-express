@@ -22,7 +22,6 @@ export class UserController {
     private readonly config: ConfigService,
   ) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);

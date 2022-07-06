@@ -1,9 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToClass } from 'class-transformer';
-import { verify } from 'crypto';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
+import { RegisterDto } from './dto/register.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -16,9 +14,9 @@ export class UserService {
     private userRepo: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(registerDto: RegisterDto) {
     try {
-      const user = await this.userRepo.create(createUserDto);
+      const user = await this.userRepo.create(registerDto);
       return this.userRepo.save(user);
     } catch (err) {
       throw new Error("Can't create new user"); // throw error when can't run userRepo.create

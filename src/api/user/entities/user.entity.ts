@@ -1,6 +1,8 @@
 import {
+  classToPlain,
   Exclude,
   Expose,
+  instanceToPlain,
   plainToClass,
   plainToClassFromExist,
   plainToInstance,
@@ -12,11 +14,15 @@ import { Column, Entity, Index, ObjectIdColumn, Unique } from 'typeorm';
 @Unique(['email'])
 @Entity({ name: 'users' })
 export class User {
+  @Exclude()
   @ObjectIdColumn()
   _id?: ObjectId | string;
 
   @Column()
-  name: string;
+  firstName: string;
+
+  @Column()
+  lastName: string;
 
   @Expose()
   @Index({ unique: true })
@@ -28,9 +34,13 @@ export class User {
   password: string;
 
   @Expose()
-  @Column()
-  get abc() {
-    return this.name + this.password;
+  get name() {
+    return this.firstName + this.lastName;
+  }
+
+  @Expose()
+  get id() {
+    return this._id.toString();
   }
 
   constructor(partial: Partial<User>) {
@@ -39,8 +49,10 @@ export class User {
         this,
         plainToClass(User, partial, { excludeExtraneousValues: true }),
       );
-
-      this._id = this._id || randomUUID();
     }
+  }
+
+  toJSON() {
+    return instanceToPlain(this);
   }
 }

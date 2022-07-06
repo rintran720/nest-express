@@ -1,10 +1,12 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   HttpException,
   HttpStatus,
   Logger,
   Post,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -25,6 +27,7 @@ export class AuthController {
 
   @Post('/register')
   @UsePipes(ValidationPipe)
+  // @UseInterceptors(ClassSerializerInterceptor)
   async register(@Body() registerDto: RegisterDto) {
     try {
       const { password } = registerDto;
