@@ -10,6 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtHelper } from '../../helpers/jwt.helper';
 import { PasswordHelper } from '../../helpers/password.helper';
 import { LoginDto } from './dto/login.dto';
@@ -28,6 +29,7 @@ export class AuthController {
   @Post('/register')
   @UsePipes(ValidationPipe)
   // @UseInterceptors(ClassSerializerInterceptor)
+  @ApiTags('user')
   async register(@Body() registerDto: RegisterDto) {
     try {
       const { password } = registerDto;
@@ -44,6 +46,7 @@ export class AuthController {
     }
   }
 
+  @ApiTags('user')
   @Post('/login')
   async login(@Body() loginDto: LoginDto) {
     try {
