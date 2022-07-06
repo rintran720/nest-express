@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { plainToClass } from 'class-transformer';
 import { verify } from 'crypto';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';

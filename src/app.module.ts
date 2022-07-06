@@ -6,7 +6,6 @@ import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config';
-import { HelperModule } from './helper/helper.module';
 
 @Module({
   imports: [
@@ -47,7 +46,6 @@ import { HelperModule } from './helper/helper.module';
       inject: [ConfigService],
     }),
     ApiModule,
-    HelperModule,
   ],
   controllers: [AppController],
   providers: [AppService],

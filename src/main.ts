@@ -11,7 +11,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
-  app.enableCors();
+  app.enableCors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  });
   app.use(cookieParser());
   app.use(
     session({
@@ -25,7 +28,7 @@ async function bootstrap() {
       },
     }),
   );
-  app.use(csurf());
+  // app.use(csurf({ cookie: true }));
   app.use(
     compression({
       level: 6,

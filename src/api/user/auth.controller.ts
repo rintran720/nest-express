@@ -5,23 +5,26 @@ import {
   HttpStatus,
   Logger,
   Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { JwtHelperService } from '../../helper/jwtHelper.service';
-import { PasswordHelperService } from '../../helper/passwordHelper.service';
-import { UserService } from '../user/user.service';
+import { JwtHelper } from '../../helpers/jwt.helper';
+import { PasswordHelper } from '../../helpers/password.helper';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { UserService } from './user.service';
 
 @Controller('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
   constructor(
     private readonly userService: UserService,
-    private readonly passwordHelperService: PasswordHelperService,
-    private readonly jwtHelperService: JwtHelperService,
+    private readonly passwordHelperService: PasswordHelper,
+    private readonly jwtHelperService: JwtHelper,
   ) {}
 
   @Post('/register')
+  @UsePipes(ValidationPipe)
   async register(@Body() registerDto: RegisterDto) {
     try {
       const { password } = registerDto;
@@ -51,10 +54,10 @@ export class AuthController {
       ) {
         return {
           token: this.jwtHelperService.generateAccessTokenSync({
-            id: user.id,
+            id: user._id,
           }),
           refreshToken: this.jwtHelperService.generateRefreshTokenSync({
-            id: user.id,
+            id: user._id,
           }),
         };
       }

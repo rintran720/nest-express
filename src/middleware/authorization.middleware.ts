@@ -7,13 +7,13 @@ import {
 } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { UserService } from '../api/user/user.service';
-import { JwtHelperService } from '../helper/jwtHelper.service';
+import { JwtHelper } from '../helpers/jwt.helper';
 
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
   private readonly logger = new Logger(AuthorizationMiddleware.name);
   constructor(
-    private readonly jwtHelperService: JwtHelperService,
+    private readonly jwtHelperService: JwtHelper,
     private readonly userService: UserService,
   ) {}
 

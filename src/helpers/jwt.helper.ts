@@ -8,7 +8,7 @@ export interface AppJwtPayload extends jwt.JwtPayload {
 }
 
 @Injectable()
-export class JwtHelperService {
+export class JwtHelper {
   private tokenSecret: string;
   private tokenExpire: string;
   private refreshTokenSecret: string;

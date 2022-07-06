@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class PasswordHelperService {
+export class PasswordHelper {
   constructor(private readonly config: ConfigService) {}
 
   hashPasswordSync(password: string) {
