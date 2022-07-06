@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as csurf from 'csurf';
@@ -35,6 +36,15 @@ async function bootstrap() {
       threshold: 100 * 1000, // bytes
     }),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('Nest Express')
+    .setDescription('The NEST-EXPRESS API description')
+    .setVersion('1.0')
+    .addTag('nest express')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   const PORT = process.env.PORT || 4860;
   await app.listen(PORT);
