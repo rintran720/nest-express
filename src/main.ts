@@ -7,6 +7,7 @@ import * as session from 'express-session';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
+import { TransformResponseInterceptor } from './interceptors/transform-response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -36,6 +37,8 @@ async function bootstrap() {
       threshold: 100 * 1000, // bytes
     }),
   );
+
+  app.useGlobalInterceptors(new TransformResponseInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('Nest Express')
