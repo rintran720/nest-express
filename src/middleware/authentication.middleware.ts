@@ -10,8 +10,8 @@ import { UserService } from '../api/user/user.service';
 import { JwtHelper } from '../helpers/jwt.helper';
 
 @Injectable()
-export class AuthorizationMiddleware implements NestMiddleware {
-  private readonly logger = new Logger(AuthorizationMiddleware.name);
+export class AuthenticationMiddleware implements NestMiddleware {
+  private readonly logger = new Logger(AuthenticationMiddleware.name);
   constructor(
     private readonly jwtHelperService: JwtHelper,
     private readonly userService: UserService,
