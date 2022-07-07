@@ -11,11 +11,11 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { JwtHelper } from './helpers/jwt.helper';
-import { PasswordHelper } from '../../helpers/password.helper';
-import { LoginDto } from './dto/login.dto';
-import { RegisterDto } from './dto/register.dto';
-import { UserService } from './user.service';
+import { LoginDto } from '../dto/login.dto';
+import { RegisterDto } from '../dto/register.dto';
+import { JwtHelper } from '../helpers/jwt.helper';
+import { PasswordHelper } from '../helpers/password.helper';
+import { UserService } from '../services/user.service';
 
 @Controller('auth')
 export class AuthController {
