@@ -6,6 +6,7 @@ import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config';
+import { CommonMiddleware } from './middlewares/common.middleware';
 
 @Module({
   imports: [
@@ -36,7 +37,7 @@ import configuration from './config';
         port: +config.get<number>('database.port', 27017),
         username: config.get('database.username'),
         password: config.get('database.password'),
-        database: config.get('database.dbname', 'nest_expess'),
+        database: config.get('database.dbname', 'nest_express'),
         entities: ['dist/**/*.entity{.ts,.js}'],
         // migrations: [__dirname + '../migrations/*{.ts,.js}'],
         // migrationsRun: true,
@@ -48,6 +49,6 @@ import configuration from './config';
     ApiModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CommonMiddleware],
 })
 export class AppModule {}

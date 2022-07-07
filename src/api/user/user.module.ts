@@ -1,17 +1,21 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtHelper } from '../../helpers/jwt.helper';
 import { PasswordHelper } from '../../helpers/password.helper';
-import { AuthenticationMiddleware } from '../../middleware/authentication.middleware';
 import { AuthController } from './auth.controller';
 import { User } from './entities/user.entity';
+import { JwtHelper } from './helpers/jwt.helper';
+import { AuthenticationMiddleware } from './middleware/authentication.middleware';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+
+const services = [UserService];
+const helpers = [PasswordHelper, JwtHelper];
+const middlewares = [AuthenticationMiddleware];
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController, AuthController],
-  providers: [UserService, PasswordHelper, JwtHelper],
+  providers: [...services, ...helpers, ...middlewares],
   exports: [TypeOrmModule],
 })
 export class UserModule implements NestModule {

@@ -10,6 +10,7 @@ import {
 import { randomUUID } from 'crypto';
 import type { ObjectId } from 'mongodb';
 import { Column, Entity, Index, ObjectIdColumn, Unique } from 'typeorm';
+import { RoleType } from '../../../constant/role-type';
 
 @Unique(['email'])
 @Entity({ name: 'users' })
@@ -32,6 +33,10 @@ export class User {
   @Exclude()
   @Column()
   password: string;
+
+  @Expose()
+  @Column()
+  role: RoleType = RoleType.USER;
 
   @Expose()
   get name() {

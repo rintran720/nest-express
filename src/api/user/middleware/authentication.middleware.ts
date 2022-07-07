@@ -6,8 +6,8 @@ import {
   NestMiddleware,
 } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { UserService } from '../api/user/user.service';
 import { JwtHelper } from '../helpers/jwt.helper';
+import { UserService } from '../user.service';
 
 @Injectable()
 export class AuthenticationMiddleware implements NestMiddleware {

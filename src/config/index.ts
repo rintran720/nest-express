@@ -13,6 +13,6 @@ export default () => ({
     port: parseInt(process.env.DB_PORT, 10) || 27017,
     username: process.env.DB_USERNAME || '',
     password: process.env.DB_PASSWORD || '',
-    dbname: process.env.DB_NAME || 'nest_expess',
+    dbname: process.env.DB_NAME || 'nest_express',
   },
 });
