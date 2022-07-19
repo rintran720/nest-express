@@ -15,10 +15,11 @@ export class TransformResponseInterceptor<T>
     next: CallHandler<T>,
   ): Observable<any> | Promise<Observable<any>> {
     // Do something before
-    return next
-      .handle()
-      .pipe(
-        map((data) => ({ data, metadata: ['http://domain.com/api/v1/doc'] })),
-      );
+    return next.handle().pipe(
+      map((data) => ({
+        data,
+        metadata: ['http://localhost:4860/api-docs/'],
+      })),
+    );
   }
 }
