@@ -2,14 +2,18 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Logger,
   Post,
+  Req,
+  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { LoginDto } from '../dto/login.dto';
 import { RegisterDto } from '../dto/register.dto';
@@ -72,5 +76,22 @@ export class AuthController {
       this.logger.error(err.message);
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
+  }
+
+  @ApiTags('user')
+  @Post('/facebook')
+  @UseGuards(AuthGuard('facebook'))
+  async facebookLogin(): Promise<any> {
+    return HttpStatus.OK;
+  }
+
+  @ApiTags('user')
+  @Get('/facebook/redirect')
+  @UseGuards(AuthGuard('facebook'))
+  async facebookLoginRedirect(@Req() req: any): Promise<any> {
+    return {
+      statusCode: HttpStatus.OK,
+      data: req.user,
+    };
   }
 }

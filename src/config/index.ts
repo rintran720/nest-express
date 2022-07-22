@@ -15,4 +15,9 @@ export default () => ({
     password: process.env.DB_PASSWORD || '',
     dbname: process.env.DB_NAME || 'nest_express',
   },
+  facebook: {
+    id: process.env.FB_ID,
+    secret: process.env.FB_SECRET,
+    callback: process.env.FB_CALLBACK,
+  },
 });
