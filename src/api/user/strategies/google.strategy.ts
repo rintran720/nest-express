@@ -1,17 +1,16 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { Profile, Strategy } from 'passport-facebook';
+import { Profile, Strategy } from 'passport-google';
 
 @Injectable()
-export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
+export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(private config: ConfigService) {
     super({
-      clientID: config.get('facebook.id'),
-      clientSecret: config.get('facebook.secret'),
-      callbackURL: config.get('facebook.callback'),
+      clientID: config.get('google.id'),
+      clientSecret: config.get('google.secret'),
+      callbackURL: config.get('google.callback'),
       scope: ['email'],
-      profileFields: ['emails', 'name'],
     });
   }
 
@@ -22,6 +21,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     done: (err: any, user: any, info?: any) => void,
   ): Promise<any> {
     console.log(accessToken, refreshToken);
+
     const { name, emails } = profile;
     const user = {
       email: emails[0].value,

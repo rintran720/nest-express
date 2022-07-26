@@ -20,4 +20,9 @@ export default () => ({
     secret: process.env.FB_SECRET,
     callback: process.env.FB_CALLBACK,
   },
+  google: {
+    id: process.env.GG_ID,
+    secret: process.env.GG_SECRET,
+    callback: process.env.GG_CALLBACK,
+  },
 });
