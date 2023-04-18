@@ -4,7 +4,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { RoleType } from '../../../constant/role-type';
+import { RoleType } from '~/common/constant/role-type';
 import { RoleGuard } from '../guards/role.guard';
 
 export interface IAuth {

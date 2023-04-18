@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { plainToInstance } from 'class-transformer';
 import _ from 'lodash';
 import { Observable } from 'rxjs';
-import { RoleType } from '../../../constant/role-type';
+import { RoleType } from '~/common/constant/role-type';
 import { User } from '../entities/user.entity';
 
 @Injectable()

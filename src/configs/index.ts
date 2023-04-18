@@ -2,6 +2,7 @@ export default () => ({
   server: {
     env: process.env.NODE_ENV || '',
     port: parseInt(process.env.PORT, 10) || 4860,
+    docUrl: process.env.DOC_URL || '',
     saltRound: parseInt(process.env.SALT_ROUND, 10) || 10,
     tokenSecret: process.env.TOKEN_SECRET || '',
     tokenExpire: process.env.TOKEN_EXPIRE || '',
@@ -14,6 +15,13 @@ export default () => ({
     username: process.env.DB_USERNAME || '',
     password: process.env.DB_PASSWORD || '',
     dbname: process.env.DB_NAME || 'nest_express',
+  },
+  mysql_database: {
+    host: process.env.MYSQL_DB_HOST || 'localhost',
+    port: parseInt(process.env.MYSQL_DB_PORT, 10) || 3306,
+    username: process.env.MYSQL_DB_USERNAME || '',
+    password: process.env.MYSQL_DB_PASSWORD || '',
+    dbname: process.env.MYSQL_DB_NAME || 'nest_express',
   },
   facebook: {
     id: process.env.FB_ID,

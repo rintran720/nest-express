@@ -18,7 +18,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migrate:create": "typeorm-ts-node-commonjs migration:create",
+    "migrate:revert": "typeorm-ts-node-commonjs migration:revert -d ./src/configs/typeorm.config.ts",
+    "migrate:run": "typeorm-ts-node-commonjs migration:run -d ./src/configs/typeorm.config.ts",
+    "migrate:generate": "typeorm-ts-node-commonjs migration:generate -d ./src/configs/typeorm.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -42,6 +46,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongodb": "^4.7.0",
+    "mysql2": "^3.2.3",
     "nestjs-pino": "^2.6.0",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",

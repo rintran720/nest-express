@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as csurf from 'csurf';
@@ -7,7 +6,8 @@ import * as session from 'express-session';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
-import { TransformResponseInterceptor } from './interceptors/transform-response.interceptor';
+import { TransformResponseInterceptor } from '~/common/interceptors/transform-response.interceptor';
+import configureSwagger from './core/swagger/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -40,17 +40,10 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new TransformResponseInterceptor());
 
-  const config = new DocumentBuilder()
-    .setTitle('Nest Express')
-    .setDescription('The NEST-EXPRESS API description')
-    .setVersion('1.0')
-    .addTag('user')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-docs', app, document);
+  configureSwagger(app);
 
   const PORT = process.env.PORT || 4860;
   await app.listen(PORT);
-  console.log(`Server listen at http://localhost:${PORT}/`);
+  console.log(`Server listen at http://localhost:${PORT}`);
 }
 bootstrap();

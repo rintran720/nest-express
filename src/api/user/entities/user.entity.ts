@@ -10,7 +10,7 @@ import {
 import { randomUUID } from 'crypto';
 import type { ObjectId } from 'mongodb';
 import { Column, Entity, Index, ObjectIdColumn, Unique } from 'typeorm';
-import { RoleType } from '../../../constant/role-type';
+import { RoleType } from '~/common/constant/role-type';
 
 @Unique(['email'])
 @Entity({ name: 'users' })
@@ -19,9 +19,11 @@ export class User {
   @ObjectIdColumn()
   _id?: ObjectId | string;
 
+  @Expose()
   @Column()
   firstName: string;
 
+  @Expose()
   @Column()
   lastName: string;
 
